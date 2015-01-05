@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Git workshop - Basic</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+    body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+    }
+
+    .filename {
+        text-align: right;
+        margin-bottom: 30px;
+        font-style: italic;
+    }
+    </style>
+    <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <link rel="stylesheet" href="js/highlight.js/styles/github.css">
+    <script src="js/highlight.js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+            <![endif]-->
+
+            <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="#">Git workshop</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="index.html">Introduction</a></li>
+                                <li class="active"><a href="basic.html">Basics</a></li>
+                                <li><a href="advanced.html">Advanced</a></li>
+                                <li><a href="git_workflow.html">Git workflow</a></li>
+                                <li><a href="commands.html">Commands cheat sheet</a></li>
+                                <li><a href="hints.html">Best practices</a></li>
+                                <li><a href="workshop.html">Workshop</a></li>
+                                <li><a href="extra.html">More</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+            <div class="row-fluid">
+                <h1>Topics covered here:</h1>
+                <ul>
+                    <li>Git repository</li>
+                    <li>Git index</li>
+                    <li>Git commit</li>
+                    <li>Git branch</li>
+                    <li>Remote repositories</li>
+                    <li>Git push/pull/fetch</li>
+                </ul>
+                <h2>Git repository</h2>
+
+                <p>Git repository is a collection of files containing information on how your project's files have changed in time (in essence it is a collection of commits and related configuration - just keep reading and it will all become clear :) ). It is stored in a special directory called <code>.git</code> located in the same directory as your project.</p>
+
+                <p>As mentioned before, files stored within this directory contain certain information. Not only about changes of files, but also configuration of the user, strategies of default operations and many more. As a user you probably will not have to change those files manually, but using git commands.</p>
+
+                <p>To set up your user configuration you can use your favourite development environment like IntelliJ or Eclipse. However, for educational purposes, I highly recommend to learn using Git through command line. It will give you more insight into how it all works :). Going back to our configuration, you can type in following commands:</p>
+
+                <p><pre>git config --global user.name "John Doe"<br>git config --global user.email johndoe@example.com</pre></p>
+
+                <p>Now you're ready to use this repositoty as John Doe whose email address is johndoe@example.com :) Later I will describe more thoroughly what other information is stored in git repository (e.g. pull strategy)</p>
+
+                <h2>Git index</h2>
+
+                <p>Git index is a place where you put files to be tracked by the repository. There is a lifecycle associated with each file in the project's directory.</p>
+
+                <p>To add files to index you can use <code>git add</code> command
+
+                <p>Below image depicts each lifecycle and flow between each phase.</p>
+
+                <div class="pagination-centered">
+                    <img src="img/lifecycle.png" style="margin:auto;"></img>
+                </div>
+
+                <ul>
+                    <li><b>Untracked</b> - file not contained in index, it is not included in git repository </li>
+                    <li><b>Unmodified</b> - file unmodified since last commit (save to repository), git knows about them</li>
+                    <li><b>Modified</b> - file that differs since last commit</li>
+                    <li><b>Staged</b> - file prepared to be commited (saved) to repository</li>
+                </ul>
+
+                <p>To check the status of git repository you can use <code>git status</code> command
+
+                <p>Some files can be completely ignored by the repository. That is different from being untracked in such a way that untracked files are not included into commits until added to index. They are still however visible by <code>git status</code> command. To completely ignore file or directory add it to a special <code>.gitignore</code> file. This is a common approach to exclude files like compiled binaries from repository.
+
+                <p>You can abandon changes introduced in file by using <code>git checkout -- font.py</code></p>
+                
+                <h2>Git commit</h2>
+
+                <div class="pagination-centered">
+                    <img src="img/commits.png" style="margin:auto;"></img>
+                </div>
+
+
+                <p>Commit is a permanently saved snapshot of repository's state. It is represented by a hexadecimal SHA hash value, username and email and optionally a message describing commit's contents. Some commits have special reference names. Commits point to each other forming treelike graphs. We will go deeper into trees and naming while describing branches and fetching from a remote repository.</p>
+
+                <p>To perform a commit operation you must first add files to be commited to the staging area. This can be done by the <code>git add</code> command. Once you have file in the stagin area you can commit them by using <code>git commit</code> command. To commit all files that are tracked by git you can use <code>-a</code> switch. To add a message to the commit you use a <code>-m</code> switch followed by message's contents.</p>
+
+                <p><code>git commit -am "Sample message"</code></p>
+
+                <p>You can also change last commit if you made a mistake. To do this you can use <code>--amend</code>option for <code>git commit</code>. In this way you can add new changes if you forgot them or overwrite commit's message.
+
+                <p><code>git commit --amend -am "Other message"</code></p>
+
+                <h2>Git branch</h2>
+
+                <div class="pagination-centered">
+                    <img src="img/branch.png" style="margin:auto;"></img>
+                </div>
+
+                <p>As I mentioned in the previous section, commits form a treelike structure, with each commit "pointing" to other. A branch is essentialy a collection of commits that represent a different version of your code (technically a branch is a pointer to commit). Thanks to this you can keep two different versions of files in the same working directory! Switching branches will result in changing of the underlying files. Git will apply all the changes in branch you are swtiching to.</p>
+
+                <p>This is where the true power of Git as a revision control system kicks in. Switching branches and keeping separate versions of code is really simple. You can focus on developing various features on different branches and then merge everything into the main branch.</p>
+
+                <p>To create/list branches you use the <code>git branch</code> command</p>
+
+                <p>To switch to another branch you use the <code>git checkout</code> command</p>
+
+                <h2>Remote repositories</h2>
+
+                <div class="pagination-centered">
+                    <img src="img/repositories.png" style="margin:auto;"></img>
+                </div>
+
+                <p>Git is a distributed system. Apart from a local repository kept on user machine there are also remote repositories. In this way you can keep changes locally, work with code, fetch changes from remote and if you are sure the code you have written is ready, you can push it to the remote for others to pick it up :)</p>
+
+                <p>There are many websites hosting remote git repositories like GitHub or Bitbucket</p>
+
+                <p>You can add new remote by <code>git remote add</code> command</p>
+
+                <p><code>git remote add origin git@github.com:user/sample.git</code></p>
+
+                <p>To remove remotes you type<code>git remote remove "remote-name"</code></p>
+
+                <p>Each local branch can have an associated remote branch. For example, you work locally on a branch called new_feature. You might have a remote branch called new_feature on a remote origin. This remote branch is then identified as origin/new_feature. You can now update your local branch with the contents of a remote and vice versa. This operations are called respectively pulling and pushing</p>
+
+                <h2>Git push/pull/fetch/</a></h2>
+
+                <p>Working with a local copy without pulling from remote repository is fine until you share work with someone else. Then it would be nice if you could see the changes introduce by your coworker. In fact, frequent updating is one of the best practices that will help you keep your repository as coherent as possible and avoid merge conflicts (more in <a href="advanced.html">Advanced</a> section)</p>
+
+                <p>To perform pull operation which synchronizes branch with its remote counterpart you use <code>git pull</code> command. Behind the scenes git performs a <code>git fetch</code> and <code>git merge</code>. Merge is explained in detail in <a href="advanced.html">Advanced</a> section. What fetch does is download changes from remote branches but do not perform merge. Changes are then kept in commits in a different structure, that can be accesed by a <code>FETCH_HEAD</code> reference.</p>
+
+                <p>To perform push operation you use the <code>git push</code> command. It pushes branches depending on push strategy you set in your configuration. By default if only <code>git push</code> is typed into terminal, it will push all branches that are ahead of their remote counterparts. You can force remote repository to accept your changes by specifying <code>-f</code>, but beware it is not a usual thing to do and you can break history for someone else! Do it if you are absolutely sure about the consequences!</p>
+
+                <p>Sometimes branch has no remote counterpart set. To do this can use the <code>--set-upstream-to</code> option of <code>git branch</code> command</p>
+
+                <p><code>git branch --set-upstream-to=origin/feature_branch</code></p>
+
+
+
+            </div>
+        </div>
+
+
+
+            </div>
+            <hr>
+            <footer>
+                <p>&copy; Bartosz Grabski, 2014</p>
+            </footer>
+
+        </div> <!-- /container -->
+
+       <!-- <script src="js/vendor/bootstrap.min.js"></script>
+       <script src="js/main.js"></script> -->  
+   </body>
+   </html>
+
+

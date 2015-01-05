@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Bitowy warsztat gitowy</title>
+        <title>Git workshop - Commands</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -42,169 +42,115 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="#">Bitowy warsztat gitowy</a>
+                    <a class="brand" href="#">Git workshop</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li><a href="index.html">Warsztaty</a></li>
-                            <li><a href="preparation.html">Wymagania</a></li>
-                            <li><a href="config.html">Konfiguracja</a></li>
-                            <li><a href="workshop.html">Przebieg warsztatu</a></li>
-                            <li class="active"><a href="commands.html">Polecenia</a></li>
-                            <li><a href="hints.html">Dobre rady</a></li>
-                            <li><a href="../prezentacja/index.html">Prezentacja</a></li>
-                            <li><a href="extra.html">Więcej</a></li>
+                            <li><a href="index.html">Introduction</a></li>
+                            <li><a href="basic.html">Basics</a></li>
+                            <li><a href="advanced.html">Advanced</a></li>
+                            <li><a href="git_workflow.html">Git workflow</a></li>
+                            <li class="active"><a href="commands.html">Commands cheat sheet</a></li>
+                            <li><a href="hints.html">Best practices</a></li>
+                            <li><a href="workshop.html">Workshop</a></li>
+                            <li><a href="extra.html">More</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
             </div>
         </div>
 
+        
         <div class="container">
+                <div class="row-fluid">
+                    <h3>git objects and names</h3>
+                    <ul>
+                        <li><span class="label label-warning">HEAD</span> - reference to latest commit on current branch</li>
+                        <li><span class="label label-warning">FETCH_HEAD</span> - reference to latest commit on fetched remote branch</li>
+                        <li><span class="label label-warning">.git</span> - git repository directory</li>
+                        <li><span class="label label-warning">.gitignore</span> - special file holding files' names and directories to be ignored.</li>
+                    </ul>
+                    <h3>git repository</h3>
+                    <ul>
+                        <li><span class="label label-warning">git init</span> - initializes an empty git repository</li>
+                        <li><span class="label label-warning">git status</span> - displays status of repository</li>
+                        <li><span class="label label-warning">git log</span> - displays log for current branch</li>
+                        <li><span class="label label-warning">git blame filename</span> - displays file filename with annotated lines of last modifier</li>
+                        <li><span class="label label-warning">git remote add remote_name remote_address</span> - adds new remote repository remote_name with address remote_address</li>
+                        <li><span class="label label-warning">git remote remove remote_name</span> - removes remote remote_name</li>
+                        <li><span class="label label-warning">git remote</span> - lists all remotes</li>
+                        <li><span class="label label-warning">git diff</span> - show changes in repository</li>
+                    </ul>
 
-            <!-- Main hero unit for a primary marketing message or call to action -->
-            <div class="hero-unit">
-                <h1>Git jest git!</h1>
-                
-                Przyjdź i poznaj jeden z najpopularniejszych systemów kontroli wersji w praktyce.
+                    <h3>git index</h3>
+                    <ul>
+                        <li><span class="label label-warning">git add .</span> - add all files in current directory to index/stagin area</li>
+                        <li><span class="label label-warning">git checkout -- font.py</span> - abandon changes in file font.py</li>
+                    </ul>
+                    <h3>git commit</h3>
+                    <ul>
+                        <li><span class="label label-warning">git commit -a -m "message"</span> - commits all files tracked by git and sets commit's message</li>
+                        <li><span class="label label-warning">git commit --amend</span> - amends the previous commit with all tracked files</li>
+                        <li><span class="label label-warning">git show COMMIT</span> - show changes introduced by COMMIT</li>
+                        <li><span class="label label-warning">git revert COMMIT</span> -creates a commit that undoes changes introduced by COMMIT</li>
+                    </ul>
+                    <h3>git branch</h3>
+                    <ul>
+                        <li><span class="label label-warning">git branch branch_name</span> - creates a new branch named branch_name</li>
+                        <li><span class="label label-warning">git branch --set-upstream-to=origin/branch_name</span> - sets current branch to track origin/branch_name</li>
+                        <li><span class="label label-warning">git checkout branch_name</span> - switches to branch branch_new</li>
+                        <li><span class="label label-warning">git branch -d branch_name</span> - drops branch branch_name</li>
+                    </ul>
+                    <h3>git push</h3>
+                    <ul>
+                        <li><span class="label label-warning">git push</span> - performs a push according to default push strategy</li>
+                        <li><span class="label label-warning">git push origin branch_name</span> - pushes current branch to origin/branch_name</li>
+                        <li><span class="label label-warning">git push -f</span> - forces(!) push to remote repository, effectively changing remote history</li>
+                        <li><span class="label label-warning">git push -u origin master</span> - pushes to origin/master and sets current branch to track origin/master</li>
+                    </ul>
+                    <h3>git pull</h3>
+                    <ul>
+                        <li><span class="label label-warning">git pull</span> - performs a pull according to default pull strategy</li>
+                        <li><span class="label label-warning">git pull remote_name</span> - performs a pull from remote_name</li>
+                    </ul>
+                    <h3>git fetch</h3>
+                    <ul>
+                        <li><span class="label label-warning">git fetch</span> - performs a fetch from default remote (origin)</li>
+                        <li><span class="label label-warning">git fetch remote_name</span> - performs a fetch from remote_name</li>
+                    </ul>
+                    <h3>git merge</h3>
+                    <ul>
+                        <li><span class="label label-warning">git fetch</span> - performs a fetch from default remote (origin)</li>
+                        <li><span class="label label-warning">git fetch remote_name</span> - performs a fetch from remote_name</li>
+                    </ul>
+                    <h3>git rebase</h3>
+                    <ul>
+                        <li><span class="label label-warning">git rebase branch_name</span> - performs a rebase of current branch on top of branch_name</li>
+                    </ul>
+                    <h3>git patch</h3>
+                    <ul>
+                        <li><span class="label label-warning">git format-patch -1 HEAD</span> - creates a new patch from last commit</li>
+                    </ul>
+                    <h3>git cherry-pick</h3>
+                    <ul>
+                        <li><span class="label label-warning">git cherry-pick COMMIT_REF</span> - performs a cherry pick of COMMIT_REF to current branch</li>
+                    </ul>
+                    <h3>git stash</h3>
+                    <ul>
+                        <li><span class="label label-warning">git stash [--include-untracked]</span> - performs a stash operation [includes untracked files]</li>
+                        <li><span class="label label-warning">git stash apply</span> - applies latest stash</li>
+                        <li><span class="label label-warning">git stash list</span> - list stashed changes</li>
+                        <li><span class="label label-warning">git stash drop</span> - drops latest stashed change</li>
+                    </ul>
+                </div>
             </div>
 
 
-
-
-<div class="span12">
-    <h2>Polecenia użyte podczas warsztatów</h2>
-    <div>
-        <h4>Część mniej zaawansowana</h4>
-
-        <ul>
-            <li> 
-                <span class="label label-important">git init</span> 
-                inicjalizacja repozytorium w bierzącym katalogu
-            </li>
-            <li> 
-                <span class="label label-important">git status</span>
-                aktualny stan katalogu roboczego (zmienione, dodane, usunięte pliki)
-            </li>
-            <li> 
-                <span class="label label-important">git add converter.py</span> 
-                dodanie pliku converter.py do najbliższego commita (stage'owanie pliku)
-            </li>
-            <li> 
-                <span class="label label-important">git commit -m "commit message"</span> 
-                commitowanie zmian
-            </li>
-            <li> 
-                <span class="label label-important">git remote add origin git@github.com:Mequrel/bit-workshop.git</span> 
-                dodanie adresu repozytorium zewnętrznego
-            </li>
-            <li> 
-                <span class="label label-important">git clone git@github.com:Mequrel/bit-workshop.git</span> 
-                skopiowanie repozytorium zewnętrznego
-            </li>
-
-             <li> 
-                <span class="label label-important"> git pull [origin master]</span> 
-                pobranie zmian z zewnętrznego repozytorium ( = <span class="label label-important"> git fetch</span> + <span class="label label-important"> git merge</span>)
-            </li>
-
-            <li> 
-                <span class="label label-important"> git push [origin master]</span> 
-                wypchnięcie naszych zmian do zewnętrznego repozytorium
-            </li>
-
-            <li> 
-                <span class="label label-important"> git diff</span> 
-                sprawdzenie różnicy pomiędzy ostatnim commitem a nie zastage'owanymi plikami
-            </li>
-            <li> 
-                <span class="label label-important"> git log</span> 
-                wyświetlenie historii commitów (tekstowo)
-            </li>
-            <li> 
-                <span class="label label-important"> gitk</span> 
-                wyświetlenie historii commitów (graficznie)
-            </li>
-            <li> 
-                <span class="label label-important"> git mergetool</span> 
-                uruchomienie narzędzia do rozwiązywania konfliktów
-            </li>
-            <li> 
-                <span class="label label-important"> 
-            git commit --amend -m "Nowy commit message"</span> 
-                dodanie zmian do poprzedniego commita i/lub poprawienie commit message
-            </li>
-
-            
-        </ul>
-    </div>
-
-    <h4>Część bardziej zaawansowana</h4>
-    <div>
-        <ul>
-            <li> 
-                <span class="label label-important">git branch</span> 
-                wylistowanie branchy
-            </li>
-            <li> 
-                <span class="label label-important">git checkout file-font-loader</span> 
-                zmiana brancha na file-font-loader
-            </li>
-            <li> 
-                <span class="label label-important">git merge file-font-loader</span> 
-                merge'owanie brancha file-font-loader do bieżącego brancha
-            </li>
-            <li> 
-                <span class="label label-important">git stash</span> 
-                stashowanie zmian (odłożenie niescommitowanych zmian na stos)
-            </li>
-            <li> 
-                <span class="label label-important">git stash list</span> 
-                wylistowanie stashów (snapshotów)
-            </li>
-            <li> 
-                <span class="label label-important">git stash apply</span> 
-                zaaplikowanie stasha znajdującego się na wierzchu stosu
-            </li>
-            <li> 
-                <span class="label label-important">git stash drop</span> 
-                usunięcie stasha ze stosu
-            </li>
-            <li> 
-                <span class="label label-important">git checkout -- font.py</span> 
-                anulowanie wszystkich zmian w pliku font.py od czasu ostatniego commita
-            </li>
-            <li> 
-                <span class="label label-important">git reset HEAD~1 --soft</span> 
-                anulowanie samego działania polecenia commit (zmiany w plikach zostają zachowane)
-            </li>
-            <li> 
-                <span class="label label-important">git reset HEAD~1 --hard</span> 
-                anulowanie ostatniego commita (wraz ze zmianami które wprowadził)
-            </li>
-            <li> 
-                <span class="label label-important">git revert HEAD</span> 
-                wygenerowanie commita, który odkręca wszystkie zmiany wprowadzone przez ostatni commit
-            </li>
-            <li> 
-                <span class="label label-important">git blame converter.py</span> 
-                wyświetlenie historii pliku converter.py w taki sposób, by widzieć kto ostatni modyfikował daną linijkę
-            </li>
-        </ul>   
-    </div>  
-</div>
-
-
-
-
-
-
-                <div class="row">
-            </div>
+        </div>
 
             <hr>
 
             <footer>
-                <p>&copy; Bartłomiej Szczepanik, BIT AGH 2013</p>
+                <p>&copy; Bartosz Grabski, 2014</p>
             </footer>
 
         </div> <!-- /container -->

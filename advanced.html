@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Git workshop - Basic</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+    body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+    }
+
+    .filename {
+        text-align: right;
+        margin-bottom: 30px;
+        font-style: italic;
+    }
+    </style>
+    <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <link rel="stylesheet" href="js/highlight.js/styles/github.css">
+    <script src="js/highlight.js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+            <![endif]-->
+
+            <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="#">Git workshop</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="index.html">Introduction</a></li>
+                                <li><a href="basic.html">Basics</a></li>
+                                <li class="active"><a href="advanced.html">Advanced</a></li>
+                                <li><a href="git_workflow.html">Git workflow</a></li>
+                                <li><a href="commands.html">Commands cheat sheet</a></li>
+                                <li><a href="hints.html">Best practices</a></li>
+                                <li><a href="workshop.html">Workshop</a></li>
+                                <li><a href="extra.html">More</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row-fluid">
+                    <h1>Topics covered here:</h1>
+                    <ul>
+                        <li>Git merge</li>
+                        <li>Git rebase</li>
+                        <li>Merge vs. rebase - what is better ?</li>
+                        <li>Resolving conflicts</li>
+                        <li>Git reset</li>
+                        <li>Git stash</li>
+                        <li>Git tags</li>
+                        <li>Git cherry pick</li>
+                        <li>Git patch</li>
+
+                    </ul>
+
+                    <h2>Git merge</h2>
+                    
+                    <p>Merging is a process of combining two branches into one. The merge commit then has two parents, one from the source branch and one from the destination. This feature enables to easily track history of changes, when was a feature branch created and when was it merged back into the destination branch.</p>
+
+                    <p>To perform a merge to current branch you use <code>git merge</code> command followed by branch's name</p>
+
+                    <p><code>git merge feature_branch</code> will merge branch feature_branch to current branch</p>
+
+                    <h2>Git rebase</h2>
+
+                    <p>Another mean of incorporating changes from another branch is to perform a rebase. This is different from a merge in such a way that it "removes" your changes, applies changes from other branch and then reapplies your changes on top of everything.</p>
+
+                    <p>To perform a rebase you use <code>git rebase</code> command followed by branch's name</p>
+
+                    <p><code>git rebase feature_branch</code> will rebase branch feature_branch to current branch</p>
+
+                    <p>Note that after rebase your commits' hashes will differ because of changes in the branch itself (tree)</p>
+
+                    <h2>Git merge vs. rebase - what is better?</h2>
+
+                    <p>You might ask what to use ?</p>
+
+                    <p>It depends. If you want to quickly merge a minor change from the main branch, then I would prefer to use rebase. In this way you will avoid littering the repository with merge commits. However, remember that rebasing does not let you track branch history, like it is done through merging</p>
+
+                    <h2>Resolving conflicts</h2>
+
+                    <p>Sometimes a conflict occurs and cannot be automatically resolved by git. Imagine a situation where you work with your coworker on the same file and edit the same line. Your coworker then pushes commits to the remote repositry. You try to pull changes to your already commited changes and a conflict turns up.</p>
+
+                    <p>Git maintains a special markers in a conflicted file - <code>&lt;&lt;&lt;&lt;&lt;&lt;</code></p>, <code>&gt;&gt;&gt;&gt;&gt;&gt;</code>, <code>======</code></p>
+
+                    <p>This can look something along the lines of</p>
+
+<pre>&lt;&lt;&lt;&lt;&lt;&lt; HEAD:file.cpp
+Hi
+=======
+Hello
+&gt;&gt;&gt;&gt;&gt;&gt; SHA-HASH-OF-COMMIT:file.cpp</pre>
+
+                    <p>The way to get rid of conflict is to choose lines that should appear as the final outcome and then stage and commit the file</p>
+
+                    <p>It is recommended to use external tools to resolve conflict as they will recognize markers and help you easily (e.g. by drag and drop) do it. IntelliJ and Eclipse's Git plugins provide nice merge conflict tools</p>
+
+                    <h2>Git reset</h2>
+                    <p>Sometimes there is a need to revert changes on your current branch. To do this you must reset the state of your repository. You can perform a "soft" and "hard" reset. Soft reset rewinds the state of index, leaving working directory untouched. Hard reset changes both the index and the working directory. Beware of hard resets, as your work may be lost!</p>
+
+                    <p>To perform a reset you use a <code>git reset</code> command. By default reset is a soft reset. You can explicitly provide <code>--hard</code> or <code>--soft</code> flags.</p>
+
+                    <p>You can use named references to easily rewind repository state. The following command will reset the repository's state by 2 commits:</p>
+
+                    <p><code>git reset HEAD~2</code></p>
+
+
+                    <h2>Git stash</h2>
+
+                    <p>Now I'm going to describe a feature I like to use a lot and which is very powerful. Stash is a structure used to temporarily hold snapshots of unstaged files (can also hold untracked files</p>
+
+                    <p>You can use stash to keep changes while for example switching to another branch. Thus you avoid creating a new commit.</p>
+
+                    <p>To create a new stash you use a <code>git stash</code> command. If you provide the <code>--include-untracked</code> option then also untracked files will be included in the snapshot</p>
+
+                    <p>To apply changes you can use either <code>git stash apply</code> or <code>git stash pop</code>. This will apply the latest change in the stash. To access a different change in stash you can refer to them by <code>stash@{i}</code>, where i is the index of stash item (0 - is the first, latest change)</p>
+
+                    <p>Let's consider a scenario of applying changes to another branch. By mistake you started working on a branch while there is a different branch you should work on. In this situation you can:</p>
+
+                    <ol>
+                        <li>Stash changes</li>
+                        <li>Switch to another branch</li>
+                        <li>Apply changes from stash</li>
+                    </ol>
+
+                    <p>It all comes down to executing commands</p>
+
+                    <p><code>git stash</code></p>
+                    <p><code>git checkout my_branch</code></p>
+                    <p><code>git stash apply</code></p>
+
+                    <p>Simple, isn't it ? :)</p>
+
+                    <p>You can clean stash by <code>git stash drop</code></p>
+
+                    <h2>Git tags</h2>
+
+                    <p>Tagging is used to mark commits. For example, If you'd like to know which commit was the "release" commit, you can tag it and quickly access it later.</p>
+
+                    <p>To list tags you use <code>git tag</code> command</p>
+
+                    <p>To create a new tag you use <code>git tag -a</code> followed by tag name. If you want to annoted a specific commit, not the latest one (<code>HEAD</code> reference) you can specify it's reference after tag name (This can be a SHA fragment, or relative position to HEAD like HEAD~1)</p>
+
+                    <h2>Git cherry pick</h2>
+
+                    <p>Cherry picking is a process of taking one commit's changes and applying it to another branch</p>
+
+                    <p>To perform a cherry pick to the current branch you use <code>git cherry-pick</code> followed by commit's SHA fragment</p>
+
+                    <p>Note that SHA of applied commit will differ, because the branch (tree) differs. Cherry picking is not copying the exact same commit, but only the changes introduce by source commit</p>
+
+                    <h2>Git patch</h2>
+
+                    <p>Patching is also a way to apply individual changes. It creates a new "patch" file or "diff", which can be e-mailed to your coworker who then can apply it to his branch.</p>
+
+                    <p>To create a patch you use <code>git format-patch</code> command</p>
+
+                    <p>To apply a patch you use <code>git apply</code> command</p>
+                </div>
+            </div>
+
+
+        </div>
+        <hr>
+        <footer>
+            <p>&copy; Bartosz Grabski, 2014</p>
+        </footer>
+
+    </div> <!-- /container -->
+
+       <!-- <script src="js/vendor/bootstrap.min.js"></script>
+       <script src="js/main.js"></script> -->  
+   </body>
+   </html>
+
+
